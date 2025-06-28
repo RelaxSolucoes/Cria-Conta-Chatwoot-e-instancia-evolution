@@ -101,6 +101,32 @@ Este projeto está sob a licença MIT. Veja o arquivo `LICENSE` para mais detalh
 **Seu Nome**
 - GitHub: [@SEU_USUARIO](https://github.com/SEU_USUARIO)
 
----
+## 🔒 Variáveis de Ambiente e Segurança
+
+Antes de rodar ou publicar o projeto, crie um arquivo `.env` na raiz do projeto com o seguinte conteúdo (NUNCA suba este arquivo para o Git!):
+
+```env
+PORT=3002
+CHATWOOT_API_KEY=COLOQUE_SUA_KEY_AQUI
+EVOLUTION_API_KEY=COLOQUE_SUA_KEY_AQUI
+CHATWOOT_URL=https://chat.relaxsolucoes.online
+EVOLUTION_URL=https://api.relaxsolucoes.online
+```
+
+> **Importante:**
+> - Nunca compartilhe suas chaves reais publicamente.
+> - O arquivo `.env` já deve estar listado no `.gitignore`.
+
+## 🚀 Deploy na Vercel
+
+1. Faça login na Vercel e conecte o repositório.
+2. Configure as variáveis de ambiente no painel da Vercel (NUNCA coloque valores sensíveis no código).
+3. Faça deploy com:
+
+```bash
+vercel --prod
+```
+
+Pronto! Seu projeto estará online com segurança.
 
 ⭐ Se este projeto te ajudou, considere dar uma estrela no repositório! 
