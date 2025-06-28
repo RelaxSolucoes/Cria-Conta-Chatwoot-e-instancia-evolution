@@ -4,7 +4,7 @@ Uma aplicação React moderna para criação automática de contas ChatWoot e in
 
 ## 🌐 Demo Online
 
-**Acesse a aplicação:** [https://chatwoot-evolution-jx56oet0o-ronald-melos-projects.vercel.app](https://chatwoot-evolution-jx56oet0o-ronald-melos-projects.vercel.app)
+**Acesse a aplicação:** [https://chatwoot-evolution.vercel.app](https://chatwoot-evolution.vercel.app)
 
 ## ✨ Características
 
@@ -108,8 +108,8 @@ Antes de rodar ou publicar o projeto, crie um arquivo `.env` na raiz do projeto 
 ```env
 CHATWOOT_API_KEY=COLOQUE_SUA_KEY_AQUI
 EVOLUTION_API_KEY=COLOQUE_SUA_KEY_AQUI
-CHATWOOT_URL=https://chat.relaxsolucoes.online
-EVOLUTION_URL=https://api.relaxsolucoes.online
+CHATWOOT_URL=https://SUA_CHATWOOT_URL_AQUI
+EVOLUTION_URL=SUA_EVOLUTION_URL_AQUI
 ```
 
 > **Importante:**
