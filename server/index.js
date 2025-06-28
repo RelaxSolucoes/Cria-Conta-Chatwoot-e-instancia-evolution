@@ -6,10 +6,16 @@ dotenv.config();
 
 const app = express();
 const port = process.env.PORT || 3001;
-
-// API Keys - Em produção, essas devem estar em variáveis de ambiente
-const CHATWOOT_API_KEY = 'maAWUDvtTCVk848xYxLx1MvF';
-const EVOLUTION_API_KEY = '1297bd373416937e24575f399ae348ad';
+const CHATWOOT_API_KEY = process.env.CHATWOOT_API_KEY;
+const EVOLUTION_API_KEY = process.env.EVOLUTION_API_KEY;
+if (!process.env.CHATWOOT_URL) {
+  throw new Error('CHATWOOT_URL não definida nas variáveis de ambiente');
+}
+if (!process.env.EVOLUTION_URL) {
+  throw new Error('EVOLUTION_URL não definida nas variáveis de ambiente');
+}
+const CHATWOOT_URL = process.env.CHATWOOT_URL;
+const EVOLUTION_URL = process.env.EVOLUTION_URL;
 
 app.use(cors());
 app.use(express.json());
@@ -169,7 +175,7 @@ app.post('/api/create-account', async (req, res) => {
     };
     console.log('Payload da empresa:', companyPayload);
     
-    const company = await makeRequest('https://chat.relaxsolucoes.online/platform/api/v1/accounts', {
+    const company = await makeRequest(`${CHATWOOT_URL}/platform/api/v1/accounts`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -190,7 +196,7 @@ app.post('/api/create-account', async (req, res) => {
     };
     console.log('Payload do usuário:', userPayload);
     
-    const user = await makeRequest('https://chat.relaxsolucoes.online/platform/api/v1/users', {
+    const user = await makeRequest(`${CHATWOOT_URL}/platform/api/v1/users`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -210,7 +216,7 @@ app.post('/api/create-account', async (req, res) => {
     };
     console.log('Payload do admin:', adminPayload);
     
-    const adminRole = await makeRequest(`https://chat.relaxsolucoes.online/platform/api/v1/accounts/${company.id}/account_users`, {
+    const adminRole = await makeRequest(`${CHATWOOT_URL}/platform/api/v1/accounts/${company.id}/account_users`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -249,7 +255,7 @@ app.post('/api/create-account', async (req, res) => {
     };
     console.log('Payload da instância Evolution:', evolutionPayload);
     
-    const evolutionInstance = await makeRequest('https://api.relaxsolucoes.online/instance/create', {
+    const evolutionInstance = await makeRequest(`${EVOLUTION_URL}/instance/create`, {
       method: 'POST',
       headers: {
         'apikey': EVOLUTION_API_KEY,
@@ -267,7 +273,7 @@ app.post('/api/create-account', async (req, res) => {
       enabled: true,
       accountId: adminRole.account_id.toString(),
       token: user.access_token,
-      url: 'https://chat.relaxsolucoes.online',
+      url: CHATWOOT_URL,
       signMsg: true,
       reopenConversation: true,
       conversationPending: false,
@@ -275,7 +281,7 @@ app.post('/api/create-account', async (req, res) => {
     };
     console.log('Payload da integração:', integrationPayload);
     
-    const integration = await makeRequest(`https://api.relaxsolucoes.online/chatwoot/set/${instanceName}`, {
+    const integration = await makeRequest(`${EVOLUTION_URL}/chatwoot/set/${instanceName}`, {
       method: 'POST',
       headers: {
         'apikey': EVOLUTION_API_KEY,
@@ -296,7 +302,7 @@ app.post('/api/create-account', async (req, res) => {
         password: password,
         companyName: nomeEmpresa,
         instanceName: instanceName,
-        chatWootUrl: 'https://chat.relaxsolucoes.online'
+        chatWootUrl: CHATWOOT_URL
       }
     });
 

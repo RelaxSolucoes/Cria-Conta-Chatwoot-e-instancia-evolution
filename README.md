@@ -106,7 +106,6 @@ Este projeto está sob a licença MIT. Veja o arquivo `LICENSE` para mais detalh
 Antes de rodar ou publicar o projeto, crie um arquivo `.env` na raiz do projeto com o seguinte conteúdo (NUNCA suba este arquivo para o Git!):
 
 ```env
-PORT=3002
 CHATWOOT_API_KEY=COLOQUE_SUA_KEY_AQUI
 EVOLUTION_API_KEY=COLOQUE_SUA_KEY_AQUI
 CHATWOOT_URL=https://chat.relaxsolucoes.online

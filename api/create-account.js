@@ -1,7 +1,19 @@
+const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args));
+
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed' });
   }
+
+  // Obter a URL do ChatWoot da variável de ambiente
+  if (!process.env.CHATWOOT_URL) {
+    throw new Error('CHATWOOT_URL não definida nas variáveis de ambiente');
+  }
+  if (!process.env.EVOLUTION_URL) {
+    throw new Error('EVOLUTION_URL não definida nas variáveis de ambiente');
+  }
+  const CHATWOOT_URL = process.env.CHATWOOT_URL;
+  const EVOLUTION_URL = process.env.EVOLUTION_URL;
 
   // Funções utilitárias
   function normalizeAccents(text) {
@@ -105,7 +117,7 @@ export default async function handler(req, res) {
 
     // 1. Criar empresa no ChatWoot
     const companyPayload = { name: nomeEmpresa, locale: 'pt_BR' };
-    const company = await makeRequest('https://chat.relaxsolucoes.online/platform/api/v1/accounts', {
+    const company = await makeRequest(`${CHATWOOT_URL}/platform/api/v1/accounts`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -116,7 +128,7 @@ export default async function handler(req, res) {
 
     // 2. Criar usuário no ChatWoot
     const userPayload = { email, name: nome, password };
-    const user = await makeRequest('https://chat.relaxsolucoes.online/platform/api/v1/users', {
+    const user = await makeRequest(`${CHATWOOT_URL}/platform/api/v1/users`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -127,7 +139,7 @@ export default async function handler(req, res) {
 
     // 3. Definir usuário como administrador
     const adminPayload = { user_id: user.id, role: 'administrator' };
-    const adminRole = await makeRequest(`https://chat.relaxsolucoes.online/platform/api/v1/accounts/${company.id}/account_users`, {
+    const adminRole = await makeRequest(`${CHATWOOT_URL}/platform/api/v1/accounts/${company.id}/account_users`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -156,7 +168,7 @@ export default async function handler(req, res) {
       qrcode: true,
       integration: 'WHATSAPP-BAILEYS'
     };
-    const evolutionInstance = await makeRequest('https://api.relaxsolucoes.online/instance/create', {
+    const evolutionInstance = await makeRequest(`${EVOLUTION_URL}/instance/create`, {
       method: 'POST',
       headers: {
         'apikey': process.env.EVOLUTION_API_KEY,
@@ -170,13 +182,13 @@ export default async function handler(req, res) {
       enabled: true,
       accountId: adminRole.account_id.toString(),
       token: user.access_token,
-      url: 'https://chat.relaxsolucoes.online',
+      url: CHATWOOT_URL,
       signMsg: true,
       reopenConversation: true,
       conversationPending: false,
       autoCreate: true
     };
-    await makeRequest(`https://api.relaxsolucoes.online/chatwoot/set/${instanceName}`, {
+    await makeRequest(`${EVOLUTION_URL}/chatwoot/set/${instanceName}`, {
       method: 'POST',
       headers: {
         'apikey': process.env.EVOLUTION_API_KEY,
@@ -194,7 +206,7 @@ export default async function handler(req, res) {
         password,
         companyName: nomeEmpresa,
         instanceName,
-        chatWootUrl: 'https://chat.relaxsolucoes.online'
+        chatWootUrl: CHATWOOT_URL
       }
     });
 
