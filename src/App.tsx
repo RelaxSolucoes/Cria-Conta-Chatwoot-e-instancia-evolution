@@ -138,7 +138,7 @@ function App() {
     setResult(null);
 
     try {
-      const response = await fetch('http://localhost:3002/api/create-account', {
+      const response = await fetch('/api/create-account', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
