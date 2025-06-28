@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { User, Mail, Phone, Building, Loader2, CheckCircle, ExternalLink, AlertCircle } from 'lucide-react';
+import ThemeToggle from './components/ThemeToggle';
 
 interface FormData {
   nome: string;
@@ -175,233 +176,239 @@ function App() {
 
   if (result) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-green-50 flex items-center justify-center p-4">
-        <div className="bg-white rounded-2xl shadow-2xl p-8 max-w-md w-full border border-gray-100">
-          <div className="text-center mb-6">
-            <div className="mx-auto w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mb-4">
-              <CheckCircle className="w-8 h-8 text-green-600" />
-            </div>
-            <h2 className="text-2xl font-bold text-gray-900 mb-2">
-              Conta criada com sucesso!
-            </h2>
-            <p className="text-gray-600">
-              Sua conta ChatWoot e instância Evolution foram configuradas
-            </p>
-          </div>
-
-          <div className="space-y-4 mb-6">
-            <div className="bg-blue-50 p-4 rounded-lg border border-blue-200">
-              <p className="text-sm font-medium text-blue-900 mb-1">Acesso ao ChatWoot:</p>
-              <a 
-                href={result.chatWootUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-blue-600 hover:text-blue-800 font-medium flex items-center gap-1 transition-colors"
-              >
-                {result.chatWootUrl}
-                <ExternalLink className="w-4 h-4" />
-              </a>
+      <>
+        <ThemeToggle />
+        <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-green-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 flex items-center justify-center p-4">
+          <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl p-8 max-w-md w-full border border-gray-100 dark:border-gray-700">
+            <div className="text-center mb-6">
+              <div className="mx-auto w-16 h-16 bg-green-100 dark:bg-green-900 rounded-full flex items-center justify-center mb-4">
+                <CheckCircle className="w-8 h-8 text-green-600 dark:text-green-400" />
+              </div>
+              <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">
+                Conta criada com sucesso!
+              </h2>
+              <p className="text-gray-600 dark:text-gray-300">
+                Sua conta ChatWoot e instância Evolution foram configuradas
+              </p>
             </div>
 
-            <div className="bg-gray-50 p-4 rounded-lg border border-gray-200">
-              <p className="text-sm font-medium text-gray-900 mb-2">Dados de Login:</p>
-              <div className="space-y-2">
-                <div>
-                  <span className="text-sm text-gray-600">Email: </span>
-                  <span className="text-sm font-mono font-medium text-gray-900">{result.email}</span>
+            <div className="space-y-4 mb-6">
+              <div className="bg-blue-50 dark:bg-blue-900/20 p-4 rounded-lg border border-blue-200 dark:border-blue-800">
+                <p className="text-sm font-medium text-blue-900 dark:text-blue-100 mb-1">Acesso ao ChatWoot:</p>
+                <a 
+                  href={result.chatWootUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300 font-medium flex items-center gap-1 transition-colors"
+                >
+                  {result.chatWootUrl}
+                  <ExternalLink className="w-4 h-4" />
+                </a>
+              </div>
+
+              <div className="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg border border-gray-200 dark:border-gray-600">
+                <p className="text-sm font-medium text-gray-900 dark:text-white mb-2">Dados de Login:</p>
+                <div className="space-y-2">
+                  <div>
+                    <span className="text-sm text-gray-600 dark:text-gray-300">Email: </span>
+                    <span className="text-sm font-mono font-medium text-gray-900 dark:text-white">{result.email}</span>
+                  </div>
+                  <div>
+                    <span className="text-sm text-gray-600 dark:text-gray-300">Senha: </span>
+                    <span className="text-sm font-mono font-medium text-gray-900 dark:text-white bg-yellow-100 dark:bg-yellow-900/30 px-2 py-1 rounded">
+                      {result.password}
+                    </span>
+                  </div>
                 </div>
-                <div>
-                  <span className="text-sm text-gray-600">Senha: </span>
-                  <span className="text-sm font-mono font-medium text-gray-900 bg-yellow-100 px-2 py-1 rounded">
-                    {result.password}
-                  </span>
-                </div>
+              </div>
+
+              <div className="bg-green-50 dark:bg-green-900/20 p-4 rounded-lg border border-green-200 dark:border-green-800">
+                <p className="text-sm font-medium text-green-900 dark:text-green-100 mb-1">Empresa:</p>
+                <p className="text-sm text-green-800 dark:text-green-200">{result.companyName}</p>
+              </div>
+
+              <div className="bg-purple-50 dark:bg-purple-900/20 p-4 rounded-lg border border-purple-200 dark:border-purple-800">
+                <p className="text-sm font-medium text-purple-900 dark:text-purple-100 mb-1">Instância Evolution:</p>
+                <p className="text-sm font-mono text-purple-800 dark:text-purple-200">{result.instanceName}</p>
               </div>
             </div>
 
-            <div className="bg-green-50 p-4 rounded-lg border border-green-200">
-              <p className="text-sm font-medium text-green-900 mb-1">Empresa:</p>
-              <p className="text-sm text-green-800">{result.companyName}</p>
-            </div>
-
-            <div className="bg-purple-50 p-4 rounded-lg border border-purple-200">
-              <p className="text-sm font-medium text-purple-900 mb-1">Instância Evolution:</p>
-              <p className="text-sm font-mono text-purple-800">{result.instanceName}</p>
-            </div>
+            <button
+              onClick={resetForm}
+              className="w-full bg-blue-600 hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600 text-white font-medium py-3 px-4 rounded-lg transition-colors duration-200"
+            >
+              Criar Nova Conta
+            </button>
           </div>
-
-          <button
-            onClick={resetForm}
-            className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-4 rounded-lg transition-colors duration-200"
-          >
-            Criar Nova Conta
-          </button>
         </div>
-      </div>
+      </>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-green-50 flex items-center justify-center p-4">
-      <div className="bg-white rounded-2xl shadow-2xl p-8 max-w-md w-full border border-gray-100">
-        <div className="text-center mb-8">
-          <div className="mx-auto w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mb-4">
-            <Building className="w-8 h-8 text-blue-600" />
-          </div>
-          <h1 className="text-2xl font-bold text-gray-900 mb-2">
-            Cadastro ChatWoot + Evolution
-          </h1>
-          <p className="text-gray-600">
-            Crie sua conta e instância automaticamente
-          </p>
-        </div>
-
-        <form onSubmit={handleSubmit} className="space-y-6">
-          <div>
-            <label htmlFor="nome" className="block text-sm font-medium text-gray-700 mb-2">
-              Nome Completo
-            </label>
-            <div className="relative">
-              <User className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
-              <input
-                type="text"
-                id="nome"
-                name="nome"
-                value={formData.nome}
-                onChange={handleInputChange}
-                required
-                className={`w-full pl-10 pr-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 ${
-                  errors.nome ? 'border-red-300 focus:ring-red-500' : 'border-gray-300'
-                }`}
-                placeholder="Seu nome completo"
-              />
+    <>
+      <ThemeToggle />
+      <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-green-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 flex items-center justify-center p-4">
+        <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl p-8 max-w-md w-full border border-gray-100 dark:border-gray-700">
+          <div className="text-center mb-8">
+            <div className="mx-auto w-16 h-16 bg-blue-100 dark:bg-blue-900 rounded-full flex items-center justify-center mb-4">
+              <Building className="w-8 h-8 text-blue-600 dark:text-blue-400" />
             </div>
-            {errors.nome && (
-              <div className="flex items-center gap-1 mt-1 text-red-600 text-sm">
-                <AlertCircle className="w-4 h-4" />
-                <span>{errors.nome}</span>
-              </div>
-            )}
+            <h1 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">
+              Cadastro ChatWoot + Evolution
+            </h1>
+            <p className="text-gray-600 dark:text-gray-300">
+              Crie sua conta e instância automaticamente
+            </p>
           </div>
 
-          <div>
-            <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
-              Email
-            </label>
-            <div className="relative">
-              <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
-              <input
-                type="email"
-                id="email"
-                name="email"
-                value={formData.email}
-                onChange={handleInputChange}
-                required
-                className={`w-full pl-10 pr-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 ${
-                  errors.email ? 'border-red-300 focus:ring-red-500' : 'border-gray-300'
-                }`}
-                placeholder="seu@email.com"
-              />
+          <form onSubmit={handleSubmit} className="space-y-6">
+            <div>
+              <label htmlFor="nome" className="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-2">
+                Nome Completo
+              </label>
+              <div className="relative">
+                <User className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 dark:text-gray-500 w-5 h-5" />
+                <input
+                  type="text"
+                  id="nome"
+                  name="nome"
+                  value={formData.nome}
+                  onChange={handleInputChange}
+                  required
+                  className={`w-full pl-10 pr-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 ${
+                    errors.nome ? 'border-red-300 focus:ring-red-500' : 'border-gray-300 dark:border-gray-600'
+                  }`}
+                  placeholder="Seu nome completo"
+                />
+              </div>
+              {errors.nome && (
+                <div className="flex items-center gap-1 mt-1 text-red-600 dark:text-red-400 text-sm">
+                  <AlertCircle className="w-4 h-4" />
+                  <span>{errors.nome}</span>
+                </div>
+              )}
             </div>
-            {errors.email && (
-              <div className="flex items-center gap-1 mt-1 text-red-600 text-sm">
-                <AlertCircle className="w-4 h-4" />
-                <span>{errors.email}</span>
+
+            <div>
+              <label htmlFor="email" className="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-2">
+                Email
+              </label>
+              <div className="relative">
+                <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 dark:text-gray-500 w-5 h-5" />
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleInputChange}
+                  required
+                  className={`w-full pl-10 pr-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 ${
+                    errors.email ? 'border-red-300 focus:ring-red-500' : 'border-gray-300 dark:border-gray-600'
+                  }`}
+                  placeholder="seu@email.com"
+                />
+              </div>
+              {errors.email && (
+                <div className="flex items-center gap-1 mt-1 text-red-600 dark:text-red-400 text-sm">
+                  <AlertCircle className="w-4 h-4" />
+                  <span>{errors.email}</span>
+                </div>
+              )}
+            </div>
+
+            <div>
+              <label htmlFor="whatsapp" className="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-2">
+                WhatsApp
+              </label>
+              <div className="relative">
+                <Phone className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 dark:text-gray-500 w-5 h-5" />
+                <input
+                  type="tel"
+                  id="whatsapp"
+                  name="whatsapp"
+                  value={formData.whatsapp}
+                  onChange={handleInputChange}
+                  required
+                  className={`w-full pl-10 pr-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 ${
+                    errors.whatsapp ? 'border-red-300 focus:ring-red-500' : 'border-gray-300 dark:border-gray-600'
+                  }`}
+                  placeholder="+55 11 99999-9999"
+                />
+              </div>
+              {errors.whatsapp && (
+                <div className="flex items-center gap-1 mt-1 text-red-600 dark:text-red-400 text-sm">
+                  <AlertCircle className="w-4 h-4" />
+                  <span>{errors.whatsapp}</span>
+                </div>
+              )}
+            </div>
+
+            <div>
+              <label htmlFor="nomeEmpresa" className="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-2">
+                Nome da Empresa
+              </label>
+              <div className="relative">
+                <Building className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 dark:text-gray-500 w-5 h-5" />
+                <input
+                  type="text"
+                  id="nomeEmpresa"
+                  name="nomeEmpresa"
+                  value={formData.nomeEmpresa}
+                  onChange={handleInputChange}
+                  required
+                  className={`w-full pl-10 pr-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 ${
+                    errors.nomeEmpresa ? 'border-red-300 focus:ring-red-500' : 'border-gray-300 dark:border-gray-600'
+                  }`}
+                  placeholder="Nome da sua empresa"
+                />
+              </div>
+              {errors.nomeEmpresa && (
+                <div className="flex items-center gap-1 mt-1 text-red-600 dark:text-red-400 text-sm">
+                  <AlertCircle className="w-4 h-4" />
+                  <span>{errors.nomeEmpresa}</span>
+                </div>
+              )}
+              {formData.nomeEmpresa && !errors.nomeEmpresa && (
+                <div className="mt-2 p-2 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg">
+                  <p className="text-xs text-blue-700 dark:text-blue-300 font-medium">Preview da instância:</p>
+                  <p className="text-sm text-blue-800 dark:text-blue-200 font-mono">
+                    {generateInstancePreview(formData.nomeEmpresa)}
+                  </p>
+                </div>
+              )}
+            </div>
+
+            {error && (
+              <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 text-red-700 dark:text-red-400 px-4 py-3 rounded-lg">
+                <p className="text-sm">{error}</p>
               </div>
             )}
+
+            <button
+              type="submit"
+              disabled={isLoading}
+              className="w-full bg-blue-600 hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600 disabled:bg-blue-400 dark:disabled:bg-blue-600 text-white font-medium py-3 px-4 rounded-lg transition-all duration-200 flex items-center justify-center gap-2"
+            >
+              {isLoading ? (
+                <>
+                  <Loader2 className="w-5 h-5 animate-spin" />
+                  Criando conta...
+                </>
+              ) : (
+                'Criar Conta'
+              )}
+            </button>
+          </form>
+
+          <div className="mt-6 text-center">
+            <p className="text-xs text-gray-500 dark:text-gray-400">
+              Ao criar a conta, você concorda com nossos termos de uso
+            </p>
           </div>
-
-          <div>
-            <label htmlFor="whatsapp" className="block text-sm font-medium text-gray-700 mb-2">
-              WhatsApp
-            </label>
-            <div className="relative">
-              <Phone className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
-              <input
-                type="tel"
-                id="whatsapp"
-                name="whatsapp"
-                value={formData.whatsapp}
-                onChange={handleInputChange}
-                required
-                className={`w-full pl-10 pr-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 ${
-                  errors.whatsapp ? 'border-red-300 focus:ring-red-500' : 'border-gray-300'
-                }`}
-                placeholder="+55 11 99999-9999"
-              />
-            </div>
-            {errors.whatsapp && (
-              <div className="flex items-center gap-1 mt-1 text-red-600 text-sm">
-                <AlertCircle className="w-4 h-4" />
-                <span>{errors.whatsapp}</span>
-              </div>
-            )}
-          </div>
-
-          <div>
-            <label htmlFor="nomeEmpresa" className="block text-sm font-medium text-gray-700 mb-2">
-              Nome da Empresa
-            </label>
-            <div className="relative">
-              <Building className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
-              <input
-                type="text"
-                id="nomeEmpresa"
-                name="nomeEmpresa"
-                value={formData.nomeEmpresa}
-                onChange={handleInputChange}
-                required
-                className={`w-full pl-10 pr-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 ${
-                  errors.nomeEmpresa ? 'border-red-300 focus:ring-red-500' : 'border-gray-300'
-                }`}
-                placeholder="Nome da sua empresa"
-              />
-            </div>
-            {errors.nomeEmpresa && (
-              <div className="flex items-center gap-1 mt-1 text-red-600 text-sm">
-                <AlertCircle className="w-4 h-4" />
-                <span>{errors.nomeEmpresa}</span>
-              </div>
-            )}
-            {formData.nomeEmpresa && !errors.nomeEmpresa && (
-              <div className="mt-2 p-2 bg-blue-50 border border-blue-200 rounded-lg">
-                <p className="text-xs text-blue-700 font-medium">Preview da instância:</p>
-                <p className="text-sm text-blue-800 font-mono">
-                  {generateInstancePreview(formData.nomeEmpresa)}
-                </p>
-              </div>
-            )}
-          </div>
-
-          {error && (
-            <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg">
-              <p className="text-sm">{error}</p>
-            </div>
-          )}
-
-          <button
-            type="submit"
-            disabled={isLoading}
-            className="w-full bg-blue-600 hover:bg-blue-700 disabled:bg-blue-400 text-white font-medium py-3 px-4 rounded-lg transition-all duration-200 flex items-center justify-center gap-2"
-          >
-            {isLoading ? (
-              <>
-                <Loader2 className="w-5 h-5 animate-spin" />
-                Criando conta...
-              </>
-            ) : (
-              'Criar Conta'
-            )}
-          </button>
-        </form>
-
-        <div className="mt-6 text-center">
-          <p className="text-xs text-gray-500">
-            Ao criar a conta, você concorda com nossos termos de uso
-          </p>
         </div>
       </div>
-    </div>
+    </>
   );
 }
 
